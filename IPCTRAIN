@@ -1,0 +1,129 @@
+#include<queue>
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cctype> // isalnum, isdigit, isspace
+#include <chrono>
+#include <climits>
+#include <cmath>
+#include <deque>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <list>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <string>
+#include <tuple>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+#include <cstring>//memset
+#include <cstdio>
+#include <stdio.h>//stdin
+using namespace std;
+
+#define lld long long int
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
+#define m 1000000007
+#define fors(i,n) for(int i=0;i<n;i++)
+#define fore(i,a,b) for(int i=a;i<=b;i++)
+#define fastio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+
+lld getline(char line[], lld max){lld nch = 0;lld c;max = max - 1;while((c = getchar()) != EOF){if(c == '\n')break;if(nch < max){line[nch] = c;nch = nch + 1;}}if(c == EOF && nch == 0)return EOF;line[nch] = '\0';return nch;}
+lld gcd(lld a,lld b){ if(a<b) { a=a+b; b=a-b; a=a-b;}while(b!=0){lld r=a%b; a=b; b=r;} return a;}
+lld bs(lld arr[], lld l, lld r, lld x) { if (r >= l) {  lld mid = l + (r - l) / 2;  if (arr[mid] == x)  return mid; if (arr[mid] > x)  return bs(arr, l, mid - 1, x);  return bs(arr, mid + 1, r, x);  }  return -1; }
+lld mypower(lld x, lld n){	if (n == 0)	return 1;	if (n & 1) 	return (((x * mypower(x, n / 2))%m) * (mypower(x, n / 2)%m)%m);return (((mypower(x, n / 2))%m) * (mypower(x, n / 2)%m))%m;}
+
+struct st
+{
+    lld di,ti,si;
+};
+
+struct comparesi
+{
+    bool operator()(st s1,st s2)
+    {
+        return s1.si<s2.si;
+    }
+};
+struct comparedi
+{
+    bool operator()(st s1,st s2)
+    {
+        if(s1.di!=s2.di)
+        return s1.di>s2.di;
+        
+        return s1.si<s2.si;
+    }
+};
+int main() 
+{
+    fastio;
+    
+    int t;
+    cin>>t;
+    
+    while(t--)
+    {
+        lld n,d;
+        cin>>n>>d;
+        
+        priority_queue<st,vector<st>,comparedi>maxpqdi;
+        priority_queue<st,vector<st>,comparesi>minpqsi;
+        
+        st temp;
+        
+        for(lld i=0;i<n;i++)
+        {
+            cin>>temp.di>>temp.ti>>temp.si;
+            maxpqdi.push(temp);
+        }
+        for(int i=1;i<=d;i++)
+        {
+            while(!maxpqdi.empty()&&i>=maxpqdi.top().di)
+            {
+                temp=maxpqdi.top();
+                minpqsi.push(temp);
+                maxpqdi.pop();
+            }
+           if(!minpqsi.empty())
+            {
+            temp=minpqsi.top();
+            minpqsi.pop();
+            temp.ti=((temp.ti)-1);
+            if(temp.ti!=0)
+            minpqsi.push(temp);
+            }
+        }
+        lld ans=0;
+        while(!maxpqdi.empty())
+        {
+            temp=maxpqdi.top();
+            ans+=(temp.si*temp.ti);
+            maxpqdi.pop();
+        }
+        while(!minpqsi.empty())
+        {
+            temp=minpqsi.top();
+            ans+=(temp.si*temp.ti);
+            minpqsi.pop();
+        }
+        cout<<ans<<"\n";
+        
+    }
+    return 0;
+}
