@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+
+struct music
+{
+    lld band,length;
+};
+bool f(music s1,music s2)
+{
+    if(s1.band!=s2.band)
+    return s1.band<s2.band;
+    
+    return s1.length<s2.length;
+}
+bool f1(music s1,music s2)
+{
+    
+    return s1.length<s2.length;
+}
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        lld n;
+        cin>>n;
+        music a[n];
+        set<lld>s;
+        for(lld i=0;i<n;i++){
+        cin>>a[i].band>>a[i].length;
+        s.insert(a[i].band);
+        }
+        sort(a,a+n,f);
+    // for(lld i=0;i<n;i++){
+      // cout<<a[i].band<<" "<<a[i].length<<"\n";
+        // }
+         music b[s.size()];
+         b[0].band=a[0].band;
+         b[0].length=a[0].length;
+        lld ans=0;
+        lld lenremain=0;
+        lld r=1;
+        for(lld i=1;i<n;i++)
+        {
+            if(a[i].band!=a[i-1].band){
+            
+         b[r].band=a[i].band;
+         b[r].length=a[i].length;
+         r++;
+            }
+            else
+            lenremain+=a[i].length;
+            //cout<<ans<<"\n";
+        }
+        
+            sort(b,b+s.size(),f1);
+      //// for(lld i=0;i<s.size();i++){
+       //cout<<b[i].band<<" "<<b[i].length<<"\n";
+        // }  
+        for(lld i=0;i<s.size();i++)
+        {
+            ans=ans+(b[i].length*(i+1));
+        }
+        ans=ans+lenremain*s.size(); 
+        cout<<ans<<"\n";
+       
+    }
+    return 0;
+}
