@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+long long int m=1000000007;
+
+int f(long long int n)
+{
+    if(n<=1)
+    return n+1;
+    
+    if(n%2==0)
+    return (f(n/2)%m)*(f(n/2)%m)%m;
+    
+    else
+    return 2*(f(n/2)%m)*(f(n/2)%m)%m;
+}
+int main()
+{
+    int t;
+    cin>>t;
+    
+    while(t--)
+    {
+        long long int n;
+        cin>>n;
+        if(n==0)
+        {
+            cout<<"1"<<"\n";
+            
+        }
+        else
+        {
+            cout<<f(n)%m-1<<"\n";
+        }
+    }
+}
