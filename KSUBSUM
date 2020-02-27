@@ -1,0 +1,80 @@
+/* SANDEEP YADAv*/
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+#define pb push_back
+#define mkp make_pair
+#define fi first
+#define se second
+#define mod 1000000007
+#define fastio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+lld gcd(lld a,lld b){ if(a<b) { a=a+b; b=a-b; a=a-b;}while(b!=0){lld r=a%b; a=b; b=r;} return a;}
+long long power(long long a, long long b, long long m) {a %= m;long long res = 1;while (b > 0) {if (b & 1)res = res * a % m;a = a * a % m;b >>= 1;}return res;}
+void judge()
+{
+      #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    freopen("error.txt","w",stderr);
+    #endif
+}
+
+int main()
+{
+    fastio;
+   // judge();
+
+    int tc;
+    cin>>tc;
+    while(tc--)
+    {
+    int n;
+    cin>>n;
+       lld k1,k2,k3;
+    cin>>k1>>k2>>k3;
+    lld a[n];
+    for(int i=0;i<n;i++)
+        cin>>a[i];
+ 
+
+    priority_queue<lld,vector<lld>,greater<>>pq;
+    lld siz=0;
+    for(int i=0;i<n;i++)
+    {
+        lld sum=0;
+        for(int j=i;j<n;j++)
+        {
+            sum+=a[j];
+            if(siz<k3)
+            {
+            pq.push(sum);
+            siz++;
+            }
+            else
+            {
+                if(sum>=pq.top())
+                {
+                pq.push(sum);
+                pq.pop();
+                }
+            }
+            }
+        }
+    lld x,y,z;
+    x=pq.top();
+    while(!pq.empty())
+    {
+        pq.pop();
+        k3--;
+        if(k3==k2)
+         y=pq.top();
+        if(k3==k1)
+        {
+             z=pq.top();
+            break;
+        }
+    }
+    cout<<z<<" "<<y<<" "<<x<<"\n";
+   }
+    return 0;
+}
