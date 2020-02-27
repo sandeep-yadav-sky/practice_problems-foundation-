@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    
+    int t;
+    cin>>t;
+    while(t--)
+    {
+       vector<int>v(1001);
+       int n,k;
+       cin>>n;
+       for(int i=0;i<n;i++)
+       {
+           cin>>k;
+           v[k]++;
+       }
+       int c=0;
+       lld area=1;
+      for(int i=1000;i>=0;i--)
+      {
+          if(v[i]>=2){
+          area=area*i;
+          c++;
+          v[i]=v[i]-2;
+          i++;
+          }
+          if(c==2)
+          break;
+      }
+      if(c<2)
+      cout<<"-1"<<"\n";
+      else
+      cout<<area<<"\n";
+    
+    }
+    return 0;
+}
