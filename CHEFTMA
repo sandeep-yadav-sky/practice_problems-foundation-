@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,whbutt,blbutt;
+        cin>>n>>whbutt>>blbutt;
+        lld a[n],b[n],d[n],r[blbutt+whbutt];
+        
+        for(int i=0;i<n;i++)
+        cin>>a[i];
+        
+        for(int i=0;i<n;i++)
+        cin>>b[i];
+        
+       for(int i=0;i<n;i++)
+         d[i]=a[i]-b[i];
+         
+       
+        
+        
+        for(lld i=0;i<(whbutt+blbutt);i++)
+        cin>>r[i];
+        
+       sort(d,d+n,greater<lld>());
+       sort(r,r+(whbutt+blbutt),greater<lld>());
+       
+       lld s=0,j=0;
+       for(lld i=0;i<(whbutt+blbutt);i++)
+       {
+           if(d[j]>=r[i]&&j<n){
+           s=s+d[j]-r[i];
+           j++;
+           }
+       }
+       for(lld i=j;i<n;i++)
+       {
+           s=s+d[i];
+       }
+       cout<<s<<"\n";
+    }
+    return 0;
+    
+}
