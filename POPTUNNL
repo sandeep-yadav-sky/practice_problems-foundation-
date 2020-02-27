@@ -1,0 +1,87 @@
+/* SANDEEP YADAv*/
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
+#define mod 1000000007
+#define fastio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+lld gcd(lld a,lld b){ if(a<b) { a=a+b; b=a-b; a=a-b;}while(b!=0){lld r=a%b; a=b; b=r;} return a;}
+long long power(long long a, long long b, long long m) {a %= m;long long res = 1;while (b > 0) {if (b & 1)res = res * a % m;a = a * a % m;b >>= 1;}return res;}
+void judge()
+{
+      #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    freopen("error.txt","w",stderr);
+    #endif
+}
+void bfs(vector<std::vector<int>>&adj,int source,std::vector<bool>&visited,vector<int>&level)
+{
+    queue<int>q;
+    visited[source]=true;
+    level[source]=0;
+    q.push(source);
+    while(!q.empty())
+    {
+        source=q.front();
+       // visited[source]=true;
+        q.pop();
+        for(int i=0;i<adj[source].size();i++)
+        {
+            level[adj[source][i]]=min(level[source]+1,level[adj[source][i]]);
+            if(!visited[adj[source][i]])
+            {
+                q.push(adj[source][i]);
+                visited[adj[source][i]]=true;
+            }
+        }
+
+    }
+}
+
+int main()
+{
+    fastio;
+    //judge();
+
+    int t;
+    cin>>t;
+    while(t--)
+    {
+     int n,k;
+     cin>>n>>k;
+
+     vector<vector<int>>adj(n+1);
+     std::vector<bool>visited(n+1);
+     std::vector<int>level(n+1,n+5);
+     for(int i=0;i<n;i++)
+     {
+        string s;
+        cin>>s;
+
+        for(int j=max(0,i-k);j<=min((int)s.size()-1,i+k);j++)
+        {
+            if((s[j]=='1')&&(j!=i))
+            {
+                adj[i].pb(j);
+                // adj[j].pb(i);
+            }
+        }
+     }
+
+     // for(int i=0;i<adj[2].size();i++)
+     //    cout<<adj[2][i]<<" ";
+     bfs(adj,0,visited,level);
+
+     for(int i=0;i<n;i++)
+        cerr<<level[i]<<" ";
+     if(level[n-1]==n+5)
+        cout<<"-1\n";
+    else
+        cout<<level[n-1]<<"\n";
+    }
+    return 0;
+}
