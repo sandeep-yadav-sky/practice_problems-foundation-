@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+struct routine
+{
+    lld stime,ftime,roomno;
+};
+bool f(routine s1,routine s2)
+{
+    if(s1.roomno!=s2.roomno)
+    return s1.roomno<s2.roomno;
+    
+    return s1.ftime<s2.ftime;
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        lld noofcust,noofroom;
+        cin>>noofcust>>noofroom;
+        if(noofcust==0)
+        cout<<"0"<<"\n";
+        else
+        {
+        routine a[noofcust];
+        for(lld i=0;i<noofcust;i++)
+        {
+            cin>>a[i].stime>>a[i].ftime>>a[i].roomno;
+        }
+        sort(a,a+noofcust,f);
+        lld j=0,ans=1;
+       for(lld i=0;i<noofcust;i++)
+       {
+        if(a[i].roomno!=a[j].roomno)
+        {
+            ans++;
+            j=i;
+        }
+        else if(a[i].stime>=a[j].ftime&&a[i].roomno==a[j].roomno)
+        {
+            ans++;
+            j=i;
+        }
+        
+       }
+         cout<<ans<<"\n";
+    }
+    }
+    return 0;
+}
