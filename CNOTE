@@ -1,0 +1,27 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+       int npgneeded,npginnb,budget,noofnb,count=0;
+       cin>>npgneeded>>npginnb>>budget>>noofnb;
+       for(int i=0;i<noofnb;i++)
+       {
+           while(noofnb--)
+           {
+           int p,q;
+           cin>>p>>q;
+           if(budget>=q&&(p>=npgneeded-npginnb))
+           count=1;
+           }
+       }
+       if(count)
+       cout<<"LuckyChef"<<endl;
+       else
+       cout<<"UnluckyChef"<<endl;
+    }
+    return 0;
+}
