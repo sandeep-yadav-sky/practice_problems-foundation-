@@ -1,0 +1,71 @@
+/* SANDEEP YADAv*/
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+#define pb push_back
+#define mkp make_pair
+#define fi first
+#define se second
+#define mod 1000000007
+#define fastio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+lld gcd(lld a,lld b){ if(a<b) { a=a+b; b=a-b; a=a-b;}while(b!=0){lld r=a%b; a=b; b=r;} return a;}
+long long power(long long a, long long b, long long m) {a %= m;long long res = 1;while (b > 0) {if (b & 1)res = res * a % m;a = a * a % m;b >>= 1;}return res;}
+void judge()
+{
+      #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    freopen("error.txt","w",stderr);
+    #endif
+}
+
+int main()
+{
+    fastio;
+    //judge();
+
+    int n;
+    cin>>n;
+    priority_queue<lld,vector<lld>,greater<>>minpq;
+    priority_queue<lld>maxpq;
+
+    int c=0;
+    while(n--)
+    {
+        lld t;
+        cin>>t;
+
+        if(t==1)
+        {
+          lld x;
+          cin>>x;
+          maxpq.push(x);
+          c++;
+          if(c%3==0)
+          {
+            minpq.push(maxpq.top());
+            maxpq.pop();
+          }
+          else if(c>3)
+          {
+            lld y=minpq.top();
+            lld z=maxpq.top();
+            if(z>y)
+            {
+                minpq.pop();
+                minpq.push(z);
+                maxpq.pop();
+                maxpq.push(y);
+            }
+          }
+        }
+        else
+        {
+            if(minpq.empty())
+                cout<<"No reviews yet\n";
+                else
+                    cout<<minpq.top()<<"\n";
+        }
+    }
+    return 0;
+}
