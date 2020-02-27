@@ -1,0 +1,121 @@
+
+#include <algorithm>
+#include <array>
+#include <bitset>
+#include <cctype> // isalnum, isdigit, isspace
+#include <chrono>
+#include <climits>
+#include <cmath>
+#include <deque>
+#include <functional>
+#include <iomanip>
+#include <iostream>
+#include <limits>
+#include <list>
+#include <map>
+#include <memory>
+#include <numeric>
+#include <queue>
+#include <random>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <stdexcept>
+#include <string>
+#include <tuple>
+#include <type_traits>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+#include <cstring>//memset
+#include <cstdio>
+#include <stdio.h>//stdin
+using namespace std;
+
+#define lld long long int
+#define pb push_back
+#define mp make_pair
+#define fi first
+#define se second
+#define m 1000000007
+#define fors(i,n) for(int i=0;i<n;i++)
+#define fore(i,a,b) for(int i=a;i<=b;i++)
+#define fastio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+
+lld getline(char line[], lld max){lld nch = 0;lld c;max = max - 1;while((c = getchar()) != EOF){if(c == '\n')break;if(nch < max){line[nch] = c;nch = nch + 1;}}if(c == EOF && nch == 0)return EOF;line[nch] = '\0';return nch;}
+lld gcd(lld a,lld b){ if(a<b) { a=a+b; b=a-b; a=a-b;}while(b!=0){lld r=a%b; a=b; b=r;} return a;}
+lld bs(lld arr[], lld l, lld r, lld x) { if (r >= l) {  lld mid = l + (r - l) / 2;  if (arr[mid] == x)  return mid; if (arr[mid] > x)  return bs(arr, l, mid - 1, x);  return bs(arr, mid + 1, r, x);  }  return -1; }
+lld mypower(lld x, lld n){	if (n == 0)	return 1;	if (n & 1) 	return (((x * mypower(x, n / 2))%m) * (mypower(x, n / 2)%m)%m);return (((mypower(x, n / 2))%m) * (mypower(x, n / 2)%m))%m;}
+
+int main() 
+{
+    fastio;
+   int t;
+   cin>>t;
+   while(t--)
+   {
+       string s1,s2;
+       cin>>s1>>s2;
+       
+       lld a[26]={0};
+       
+       for(int i=0;i<s2.size();i++)
+       {
+           a[((int)s2[i]-97)]++;
+       }
+       int flag=0,finish=0;
+       for(int i=0;i<s1.size();i++)
+       {
+           if(a[((int)s1[i]-97)])
+          a[((int)s1[i]-97)]--;
+          else
+         {
+          finish=1;
+          break;
+         }
+       }
+       if(finish)
+       {
+       cout<<"Impossible\n";
+       continue;
+       }
+        
+          int i=1;
+          while(i!=s1.size()&&s1[i]==s1[i-1])
+          {
+              i++;
+          }
+          if(s1[i-1]>s1[i])
+          flag=1;
+          
+      
+         for(int i=0;i<26;i++)
+         {
+             if(char(97+i+flag)<=s1[0])
+             {
+             for(int j=0;j<a[i];j++)
+             {
+                 cout<<char(97+i);
+             }
+             }
+             else
+             {
+                 for(int k=0;k<s1.size();k++)
+                 cout<<s1[k];
+                 for(int l=i;l<26;l++)
+                 {
+                     for(int j=0;j<a[l];j++)
+                      cout<<char(97+l);
+                 }
+                 break;
+             }
+         }
+         
+             
+       
+       cout<<"\n";
+       
+   }
+    return 0;
+}
