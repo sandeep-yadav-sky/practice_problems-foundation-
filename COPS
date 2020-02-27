@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	int t,ans;
+	cin>>t;
+	while(t--)
+	{
+		int x,y,m;
+		cin>>x>>y>>m;
+		int p=y*m,i;
+		int a[x],b[2*x];
+		for(i=0;i<x;i++)
+		cin>>a[i];
+		sort(a,a+x);
+		for(i=0;i<x;i++)
+		{
+			b[2*i]=a[i]-p;
+			b[2*i+1]=a[i]+p;
+		}
+		if(b[0]<1)
+		{
+		b[0]=1;
+		ans=0;
+	    }
+		else
+		ans=b[0]-1;
+		for(i=2;i<2*x;i+=2)
+		{
+			if(b[i]>b[i-1])
+			ans=ans+b[i]-b[i-1]-1;
+		}
+		if(b[2*x-1]<100)
+		ans=ans+100-b[2*x-1];
+		
+		cout<<ans<<endl;
+		
+	}
+	return 0;
+}
