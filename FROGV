@@ -1,0 +1,63 @@
+#include<bits/stdc++.h>
+#define lld long long int
+using namespace std;
+
+struct st
+{
+    lld x,y,z;
+};
+
+bool f(st s1,st s2)
+{
+    return s1.x<s2.x;
+}
+bool f1(st s1,st s2)
+{
+    return s1.z<s2.z;
+}
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+    
+    lld n,p,k,q;
+    cin>>n>>k>>p;
+    
+     st s[n];
+    for(int i=0;i<n;i++)
+    {
+        cin>>q;
+        s[i].x=q;
+        s[i].y=i;
+        s[i].z=i;
+    }
+    sort(s,s+n,f);
+    
+    int c=0;
+    s[0].y=0;
+    for(int i=0;i<n-1;i++)
+    {
+        if(s[i+1].x-s[i].x<=k)
+        s[i+1].y=c;
+        
+        else 
+        {c++;
+        s[i+1].y=c;
+        }
+    }
+    
+       sort(s,s+n,f1);
+
+   while(p--)
+   {
+       int r,m;
+       cin>>r>>m;
+       
+       if(s[r-1].y==s[m-1].y)
+       cout<<"Yes"<<"\n";
+       else
+       cout<<"No"<<"\n";
+   }
+    return 0;
+}
