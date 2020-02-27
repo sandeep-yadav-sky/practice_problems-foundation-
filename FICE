@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ulli unsigned long long int 
+void multip(ulli f[2][2],ulli f1[2][2],ulli m)
+{
+    ulli x=(f[0][0]*f1[0][0]+f[0][1]*f1[1][0])%m;
+    ulli y=(f[0][0]*f1[0][1]+f[0][1]*f1[1][1])%m;
+    ulli z=(f[1][0]*f1[0][0]+f[1][1]*f1[1][0])%m;
+    ulli w=(f[1][0]*f1[0][1]+f[1][1]*f1[1][1])%m;
+    f[0][0]=x;
+    f[0][1]=y;
+    f[1][0]=z;
+    f[1][1]=w;
+}
+void powers(ulli f[2][2],ulli n,ulli m)
+{
+    if(n==0||n==1)
+    return ;
+    ulli fm[2][2]={{1,1},{1,0}};
+    powers(f,n/2,m);
+    multip(f,f,m);
+    if((n%2))
+    multip(f,fm,m);
+    
+}
+ulli fibo(ulli n,ulli m)
+{
+    ulli f[2][2] = {{1,1},{1,0}};
+    if(n==0)
+    return 0;
+    
+    powers(f,n-1,m);
+    return f[0][0];
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        ulli n,m;
+        cin>>n>>m;
+        cout<<(2*(fibo(n,m)))%m<<"\n";
+    }
+        return 0;
+}
