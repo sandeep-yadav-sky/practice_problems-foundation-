@@ -1,0 +1,98 @@
+/* SANDEEP YADAv*/
+#include<bits/stdc++.h>
+using namespace std;
+#define lld long long int
+#define pb push_back
+#define mkp make_pair
+#define fi first
+#define se second
+#define mod 100000000000007
+#define fastio ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0)
+lld gcd(lld a,lld b){ if(a<b) { a=a+b; b=a-b; a=a-b;}while(b!=0){lld r=a%b; a=b; b=r;} return a;}
+long long power(long long a, long long b, long long m) {a %= m;long long res = 1;while (b > 0) {if (b & 1)res = res * a % m;a = a * a % m;b >>= 1;}return res;}
+void judge()
+{
+      #ifndef ONLINE_JUDGE
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
+    freopen("error.txt","w",stderr);
+    #endif
+}
+lld a[1000005];
+lld mini=mod;
+void dfs(vector<vector<lld>>&adj,lld source,vector<bool>&visited)
+{
+    visited[source]=true;
+    if(a[source]<mini)
+        mini=a[source];
+    for(lld i=0;i<adj[source].size();i++)
+    {
+        if(!visited[adj[source][i]])
+        {
+            dfs(adj,adj[source][i],visited);
+        }
+    }
+}
+int main()
+{
+    fastio;
+    judge();
+
+    lld n,m;
+    cin>>n>>m;
+    std::vector<std::vector<lld>>adj(n+1);
+    
+    for(lld i=0;i<m;i++)
+        {
+            lld x,y;
+            cin>>x>>y;
+    
+            adj[x].pb(y);
+            adj[y].pb(x);
+        }
+    a[0]=0;
+    for(lld i=1;i<=n;i++)
+    {
+        cin>>a[i];
+        if(a[i]<0)
+            a[i]=mod;
+    }
+lld flag=0;
+    vector<bool>visited(n+1);
+   // lld ans=0;
+   vector<lld>ans;
+    for(lld i=1;i<=n;i++)
+    {
+        if(!visited[i])
+        {
+            dfs(adj,i,visited);
+                ans.pb(mini);
+                if(mini>=mod)
+                {
+                    flag=1;
+                }
+                mini=mod;
+        }
+    }
+    if(n==1)
+        cout<<0;
+    else if(ans.size()==1)
+        {
+            cout<<0;
+        }
+    else if(flag==1||m==0)
+        cout<<-1;
+    else
+    {
+        sort(ans.begin(),ans.end());
+        lld c=0;
+        for(int i=1;i<ans.size();i++)
+        {
+            // cerr<<ans[i];
+            c+=ans[0]+ans[i];
+        }
+        cout<<c;
+
+    }
+    return 0;
+}
