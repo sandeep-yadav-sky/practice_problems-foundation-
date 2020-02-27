@@ -1,0 +1,35 @@
+#include<bits/stdc++.h>
+using namespace std;
+int fmin(int n)
+{
+    if(n==1)
+    return 0;
+    else if(n%2==0)
+    {
+        return n+2*(fmin(n/2));
+    }
+    else
+    return n+fmin(n/2)+fmin(n-n/2);
+}
+int main()
+{
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+ int t;
+ cin>>t;
+ while(t--)
+ {
+ int n,m;
+ long long int max=0,min=0;
+ cin>>n>>m;
+ max=(n*(n+3))/2;
+ min=fmin(n+1);
+ if(m>max)
+ cout<<m-max<<"\n";
+ else if(m<min)
+ cout<<"-1"<<"\n";
+ else
+ cout<<"0"<<"\n";
+ }
+ return 0;
+}
